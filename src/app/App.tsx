@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./App.css";
 import Home from "./routes/home/App";
+import Square from "./routes/square/index";
 
 import Root, {
   loader as rootLoader,
@@ -13,7 +14,7 @@ import EditContact, { action as editAction } from "./routes/edit";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "contacts",
     element: <Root />,
     errorElement: <ErrorPage />,
     loader: rootLoader,
@@ -33,8 +34,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "home",
+    path: "/",
     element: <Home />,
+  },
+  {
+    path: "square",
+    element: <Square />,
   },
   // {
   //   path: "contacts/:contactId",
