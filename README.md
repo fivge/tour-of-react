@@ -15,3 +15,17 @@ yarn create vite my-react-app --template react-ts
 <https://reactrouter.com/en/main>
 
 ### 2. redux
+
+### 3. css-in-js
+
+https://github.com/emotion-js/emotion
+
+https://github.com/styled-components/styled-components
+
+### 4. ui component
+
+https://mui.com/
+
+## demos
+
+- https://github.com/marmelab/react-admin

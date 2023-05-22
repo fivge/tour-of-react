@@ -3,11 +3,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Home from "./routes/home/App";
 import Square from "./routes/square/index";
+import MUi from "./routes/mui/index";
 
-import Root, {
-  loader as rootLoader,
-  action as rootAction,
-} from "./routes/root";
+import Root, { loader as rootLoader, action as rootAction } from "./routes/root";
 import ErrorPage from "./error-page";
 import Contact, { loader as contactLoader } from "./routes/contact";
 import EditContact, { action as editAction } from "./routes/edit";
@@ -40,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "square",
     element: <Square />,
+  },
+  {
+    path: "mui",
+    element: <MUi />,
   },
   // {
   //   path: "contacts/:contactId",
