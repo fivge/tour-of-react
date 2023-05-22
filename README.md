@@ -26,6 +26,17 @@ https://github.com/styled-components/styled-components
 
 https://mui.com/
 
+### 5. http
+
+https://github.com/axios/axios
+
+### 6. rxjs
+
+https://github.com/ReactiveX/rxjs
+
+https://github.com/re-rxjs/react-rxjs
+
 ## demos
 
 - https://github.com/marmelab/react-admin
+- https://angular.cn/tutorial

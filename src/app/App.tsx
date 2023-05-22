@@ -4,6 +4,7 @@ import "./App.css";
 import Home from "./routes/home/App";
 import Square from "./routes/square/index";
 import MUi from "./routes/mui/index";
+import RxJS from "./routes/rxjs/index";
 
 import Root, { loader as rootLoader, action as rootAction } from "./routes/root";
 import ErrorPage from "./error-page";
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "mui",
     element: <MUi />,
+  },
+  {
+    path: "rxjs",
+    element: <RxJS />,
   },
   // {
   //   path: "contacts/:contactId",
