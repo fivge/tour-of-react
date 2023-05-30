@@ -5,6 +5,8 @@ import Home from "./routes/home/App";
 import Square from "./routes/square/index";
 import MUi from "./routes/mui/index";
 import RxJS from "./routes/rxjs/index";
+import Zustand from "./routes/zustand/index";
+import Zustand2 from "./routes/zustand2/index";
 
 import Root, { loader as rootLoader, action as rootAction } from "./routes/root";
 import ErrorPage from "./error-page";
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
   {
     path: "rxjs",
     element: <RxJS />,
+  },
+  {
+    path: "zustand",
+    element: <Zustand />,
+  },
+  {
+    path: "zustand2",
+    element: <Zustand2 />,
   },
   // {
   //   path: "contacts/:contactId",

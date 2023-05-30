@@ -14,7 +14,10 @@ yarn create vite my-react-app --template react-ts
 
 <https://reactrouter.com/en/main>
 
-### 2. redux
+### 2. state management
+
+- [zustand](https://github.com/pmndrs/zustand)
+- redux
 
 ### 3. css-in-js
 
@@ -35,6 +38,12 @@ https://github.com/axios/axios
 https://github.com/ReactiveX/rxjs
 
 https://github.com/re-rxjs/react-rxjs
+
+### 7. rich text edit
+
+https://github.com/quilljs/quill/
+
+https://github.com/zenoamaro/react-quill
 
 ## demos
 
