@@ -1,5 +1,5 @@
 import { Form, useLoaderData } from "react-router-dom";
-import { getContact } from "../../contacts";
+import { getContact } from "./contacts";
 
 export default function Contact() {
   const contact = useLoaderData();
@@ -48,7 +48,7 @@ export default function Contact() {
           <Form
             method="post"
             action="destroy"
-            onSubmit={(event) => {
+            onSubmit={event => {
               if (!confirm("Please confirm you want to delete this record.")) {
                 event.preventDefault();
               }
@@ -67,11 +67,7 @@ function Favorite({ contact }) {
   let favorite = contact.favorite;
   return (
     <Form method="post">
-      <button
-        name="favorite"
-        value={favorite ? "false" : "true"}
-        aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
-      >
+      <button name="favorite" value={favorite ? "false" : "true"} aria-label={favorite ? "Remove from favorites" : "Add to favorites"}>
         {favorite ? "★" : "☆"}
       </button>
     </Form>

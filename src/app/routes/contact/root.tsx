@@ -1,13 +1,7 @@
-import {
-  Form,
-  Link,
-  NavLink,
-  Outlet,
-  redirect,
-  useLoaderData,
-  useNavigation,
-} from "react-router-dom";
-import { createContact, getContacts } from "../contacts";
+import { Form, Link, NavLink, Outlet, redirect, useLoaderData, useNavigation } from "react-router-dom";
+import { createContact, getContacts } from "./contacts";
+
+import "./root.css";
 
 export default function Root() {
   const { contacts } = useLoaderData();
@@ -19,13 +13,7 @@ export default function Root() {
         <h1>React Router Contacts</h1>
         <div>
           <form id="search-form" role="search">
-            <input
-              id="q"
-              aria-label="Search contacts"
-              placeholder="Search"
-              type="search"
-              name="q"
-            />
+            <input id="q" aria-label="Search contacts" placeholder="Search" type="search" name="q" />
             <div id="search-spinner" aria-hidden hidden={true} />
             <div className="sr-only" aria-live="polite"></div>
           </form>
@@ -47,7 +35,7 @@ export default function Root() {
           </ul> */}
           {contacts.length ? (
             <ul>
-              {contacts.map((contact) => (
+              {contacts.map(contact => (
                 <li key={contact.id}>
                   {/* <Link to={`contacts/${contact.id}`}>
                     {contact.first || contact.last ? (
@@ -61,9 +49,7 @@ export default function Root() {
                   </Link> */}
                   <NavLink
                     to={`contacts/${contact.id}`}
-                    className={({ isActive, isPending }) =>
-                      isActive ? "active" : isPending ? "pending" : ""
-                    }
+                    className={({ isActive, isPending }) => (isActive ? "active" : isPending ? "pending" : "")}
                   >
                     {contact.first || contact.last ? (
                       <>
@@ -84,10 +70,7 @@ export default function Root() {
           )}
         </nav>
       </div>
-      <div
-        id="detail"
-        className={navigation.state === "loading" ? "loading" : ""}
-      >
+      <div id="detail" className={navigation.state === "loading" ? "loading" : ""}>
         <Outlet />
       </div>
     </>

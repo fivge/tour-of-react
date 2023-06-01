@@ -8,10 +8,10 @@ import RxJS from "./routes/rxjs/index";
 import Zustand from "./routes/zustand/index";
 import Zustand2 from "./routes/zustand2/index";
 
-import Root, { loader as rootLoader, action as rootAction } from "./routes/root";
+import Root, { loader as rootLoader, action as rootAction } from "./routes/contact/root";
 import ErrorPage from "./error-page";
 import Contact, { loader as contactLoader } from "./routes/contact";
-import EditContact, { action as editAction } from "./routes/edit";
+import EditContact, { action as editAction } from "./routes/contact/edit";
 
 const router = createBrowserRouter([
   {
