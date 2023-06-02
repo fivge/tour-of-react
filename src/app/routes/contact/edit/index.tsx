@@ -1,8 +1,23 @@
-import { Form, redirect, useLoaderData } from "react-router-dom";
-import { updateContact } from "../contacts";
+import { useEffect, useState } from "react";
+import { Form, redirect, useParams } from "react-router-dom";
+import { getContact, updateContact } from "../contacts";
 
 export default function EditContact() {
-  const contact = useLoaderData();
+  const [contact, setContact] = useState<any>({});
+  const params = useParams();
+
+  useEffect(() => {
+    const contact = getContact(params.contactId);
+    setContact(contact);
+  }, []);
+
+  const update = async () => {
+    // TODO
+    // const formData = await request.formData();
+    // const updates = Object.fromEntries(formData);
+    // await updateContact(params.contactId, updates);
+    // return redirect(`/contacts/${params.contactId}`);
+  };
 
   return (
     <Form method="post" id="contact-form">
@@ -41,5 +56,5 @@ export async function action({ request, params }) {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
   await updateContact(params.contactId, updates);
-  return redirect(`/contacts/${params.contactId}`);
+  return redirect(`/contact/${params.contactId}`);
 }

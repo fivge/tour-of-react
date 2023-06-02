@@ -1,41 +1,38 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import Home from "./home/App";
+import ContactRoot from "./contact/index";
+import ContactHome from "./contact/home";
+import Contact from "./contact/contact";
+import EditContact, { action as editAction } from "./contact/edit";
+import ErrorPage from "./error-page";
 import Square from "./square/index";
 import MUi from "./mui/index";
 import RxJS from "./rxjs/index";
 import Zustand from "./zustand/index";
 import Zustand2 from "./zustand2/index";
 
-import Root, { loader as rootLoader, action as rootAction } from "./contact/root";
-import Contact, { loader as contactLoader } from "./contact";
-import EditContact, { action as editAction } from "./contact/edit";
-import ErrorPage from "./error-page";
-
 const router = createBrowserRouter([
-  {
-    path: "contacts",
-    element: <Root />,
-    errorElement: <ErrorPage />,
-    loader: rootLoader,
-    action: rootAction,
-    children: [
-      {
-        path: "contacts/:contactId",
-        element: <Contact />,
-        loader: contactLoader,
-      },
-      {
-        path: "contacts/:contactId/edit",
-        element: <EditContact />,
-        loader: contactLoader,
-        action: editAction,
-      },
-    ],
-  },
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "contact",
+    element: <ContactRoot />,
+    errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <ContactHome /> },
+      {
+        path: ":contactId",
+        element: <Contact />,
+      },
+      {
+        path: ":contactId/edit",
+        element: <EditContact />,
+        action: editAction,
+      },
+    ],
   },
   {
     path: "square",
