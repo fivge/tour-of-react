@@ -2,7 +2,9 @@
 
 ## Archs
 
-### 0. vite + react + typecript
+### 0. scaffold
+
+`vite + react + typecript`
 
 <https://cn.vitejs.dev/guide/>
 
@@ -16,10 +18,14 @@ yarn create vite my-react-app --template react-ts
 
 ### 2. state management
 
-- [zustand](https://github.com/pmndrs/zustand)
+- ✅[zustand](https://github.com/pmndrs/zustand)
 - redux
 
-### 3. css-in-js
+### 3. css
+
+- less
+
+#### css-in-js
 
 https://github.com/emotion-js/emotion
 
@@ -29,9 +35,10 @@ https://github.com/styled-components/styled-components
 
 https://mui.com/
 
-### 5. http
+### 5. Data Fetching
 
-https://github.com/axios/axios
+- [axios](https://github.com/axios/axios)
+- [swr](https://github.com/vercel/swr)
 
 ### 6. rxjs
 
