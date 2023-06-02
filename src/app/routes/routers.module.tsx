@@ -1,17 +1,16 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
-import "./App.css";
-import Home from "./routes/home/App";
-import Square from "./routes/square/index";
-import MUi from "./routes/mui/index";
-import RxJS from "./routes/rxjs/index";
-import Zustand from "./routes/zustand/index";
-import Zustand2 from "./routes/zustand2/index";
+import Home from "./home/App";
+import Square from "./square/index";
+import MUi from "./mui/index";
+import RxJS from "./rxjs/index";
+import Zustand from "./zustand/index";
+import Zustand2 from "./zustand2/index";
 
-import Root, { loader as rootLoader, action as rootAction } from "./routes/contact/root";
+import Root, { loader as rootLoader, action as rootAction } from "./contact/root";
+import Contact, { loader as contactLoader } from "./contact";
+import EditContact, { action as editAction } from "./contact/edit";
 import ErrorPage from "./error-page";
-import Contact, { loader as contactLoader } from "./routes/contact";
-import EditContact, { action as editAction } from "./routes/contact/edit";
 
 const router = createBrowserRouter([
   {
@@ -64,8 +63,4 @@ const router = createBrowserRouter([
   // },
 ]);
 
-function App() {
-  return <RouterProvider router={router} />;
-}
-
-export default App;
+export default router;
