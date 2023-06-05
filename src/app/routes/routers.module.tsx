@@ -11,6 +11,8 @@ import MUi from "./mui/index";
 import RxJS from "./rxjs/index";
 import Zustand from "./zustand/index";
 import Zustand2 from "./zustand2/index";
+import ShioriRouting from "./shiori/shiori-routing.module";
+import ShioriModule from "./shiori";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,11 @@ const router = createBrowserRouter([
   {
     path: "zustand2",
     element: <Zustand2 />,
+  },
+  {
+    path: "shiori",
+    element: <ShioriModule />,
+    children: ShioriRouting,
   },
   // {
   //   path: "contacts/:contactId",

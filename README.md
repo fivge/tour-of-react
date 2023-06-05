@@ -21,7 +21,7 @@ yarn create vite my-react-app --template react-ts
 - ✅[zustand](https://github.com/pmndrs/zustand)
 - redux
 
-### 3. css
+### 3. styling
 
 - less
 
