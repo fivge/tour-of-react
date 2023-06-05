@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate, useNavigation } from "react-router-dom";
 
 import { createContact, getContacts } from "./contacts";
-import "./index.css";
+// import "./index.css";
 
 export default function Root() {
   const [contacts, setContacts] = useState<any[]>([]);

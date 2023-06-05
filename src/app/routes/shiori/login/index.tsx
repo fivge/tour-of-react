@@ -1,75 +1,79 @@
-import { Button, Card, TextField } from "@mui/material";
-import { css } from "@emotion/react";
-import useSWRMutation from "swr/mutation";
-import { fetcher } from "../../../core/http.provider";
-
-import "./index.less";
 import { useState } from "react";
-import api from "../api";
+import { Button, Card, CardActions, CardContent, CardHeader, Checkbox, FormControlLabel, Input, TextField } from "@mui/material";
+import { css } from "@emotion/react";
 
-async function sendRequest(url, { arg }) {
-  // return fetcher([url, { method: "POST", params: arg, mode: "no-cors" }]);
-  return fetcher([url, { method: "POST", params: arg, mode: "cors" }]);
-}
+import api from "../api";
+import "./index.less";
+import { useAuth } from "../shared/store";
 
 const Login = () => {
-  const [userName, setUserName] = useState("");
-  const [passwd, setPasswd] = useState("");
-  // const { data } = api.useLogin({});
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
 
-  // const { trigger, isMutating } = useSWRMutation("https://shiori.0x64.ml/api/login", sendRequest /* options */);
-  const { trigger, isMutating } = useSWRMutation("/shiori/api/login", sendRequest /* options */);
+  const { trigger, isMutating } = api.useLogin();
 
-  const onChange = (e, type) => {
-    const { value } = e.target;
-    if (type === "userName") {
-      setUserName(value);
+  const onChange = (value, type) => {
+    if (type === "username") {
+      setUsername(value);
     }
 
-    if (type === "passwd") {
-      setPasswd(value);
+    if (type === "password") {
+      setPassword(value);
+    }
+
+    if (type === "remember") {
+      setRemember(value);
     }
   };
 
   const onLogin = async () => {
+    if (!username || !password) {
+      return;
+    }
+
     try {
       const params = {
-        username: userName,
-        password: passwd,
-        remember: false,
+        username,
+        password,
+        remember,
         // owner: true,
       };
-      const result = await trigger(params /* options */);
-      console.log("result", result, passwd);
+      const res = await trigger(params);
+      res.expires = new Date(res.expires);
+      useAuth(res);
+      // TODO 页面跳转
     } catch (e) {
-      // 错误处理
-      console.log("e", e, passwd);
+      console.log("e", e);
     }
-    console.log("xx", userName, passwd);
   };
 
   return (
     <>
       <div className="login">
-        {/* <Card> */}
-        {isMutating || "false"}
-        asdasd
-        <TextField id="standard-basic" label="username" variant="outlined" onChange={e => onChange(e, "userName")} />
-        <TextField id="standard-basic2" label="passwd" variant="standard" onChange={e => onChange(e, "passwd")} />
-        <Button variant="contained" onClick={onLogin}>
-          Login
-        </Button>
-        {/* </Card> */}
+        <Card>
+          <CardHeader title="栞 shiori" subheader="simple bookmark manager" />
+          <CardContent>
+            <div className="fields">
+              <TextField label="用户名" variant="standard" onChange={e => onChange(e.target.value, "username")} />
+              <TextField label="密码" variant="standard" onChange={e => onChange(e.target.value, "password")} />
+            </div>
+          </CardContent>
+          <CardActions>
+            <FormControlLabel
+              control={<Checkbox size="small" />}
+              label="记住密码"
+              checked={remember}
+              onChange={e => onChange(e.target.checked, "remember")}
+            />
+            <Button variant="contained" size="small" onClick={onLogin}>
+              登录
+            </Button>
+          </CardActions>
+        </Card>
       </div>
     </>
   );
 };
 
 export default Login;
-
-// function useSWRMutation(arg0: string, sendRequest: any): { trigger: any; isMutating: any } {
-//   throw new Error("Function not implemented.");
-// }
-// You have tried to stringify object returned from `css` function.
-//  It isn't supposed to be used directly (e.g. as value of the `className` prop),
-//  but rather handed to emotion so it can handle it (e.g. as value of `css` prop).
