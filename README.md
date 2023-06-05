@@ -39,6 +39,7 @@ https://mui.com/
 
 - [axios](https://github.com/axios/axios)
 - [swr](https://github.com/vercel/swr)
+- GraphQL
 
 ### 6. rxjs
 
