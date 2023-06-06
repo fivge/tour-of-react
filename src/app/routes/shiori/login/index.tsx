@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, CardActions, CardContent, CardHeader, Checkbox, FormControlLabel, Input, TextField } from "@mui/material";
 import { css } from "@emotion/react";
+import { useNavigate } from "react-router-dom";
 
 import api from "../api";
-import "./index.less";
 import { useAuth } from "../shared/store";
+import "./index.less";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -12,6 +13,8 @@ const Login = () => {
   const [remember, setRemember] = useState(false);
 
   const { trigger, isMutating } = api.useLogin();
+  const setAuth = useAuth(state => state.setAuth);
+  const navigate = useNavigate();
 
   const onChange = (value, type) => {
     if (type === "username") {
@@ -31,7 +34,6 @@ const Login = () => {
     if (!username || !password) {
       return;
     }
-
     try {
       const params = {
         username,
@@ -40,13 +42,20 @@ const Login = () => {
         // owner: true,
       };
       const res = await trigger(params);
+      console.log("res", res);
       res.expires = new Date(res.expires);
-      useAuth(res);
-      // TODO 页面跳转
+      setAuth(res);
+      navigate("../home");
     } catch (e) {
       console.log("e", e);
     }
   };
+
+  // return (
+  //   <>
+  //     <div onClick={addABear}>add</div>
+  //   </>
+  // );
 
   return (
     <>
@@ -64,7 +73,7 @@ const Login = () => {
               control={<Checkbox size="small" />}
               label="记住密码"
               checked={remember}
-              onChange={e => onChange(e.target.checked, "remember")}
+              onChange={e => onChange((e.target as any).checked, "remember")}
             />
             <Button variant="contained" size="small" onClick={onLogin}>
               登录

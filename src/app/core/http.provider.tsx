@@ -6,8 +6,6 @@ export const fetcher = async (params: string | [string, HttpConfig]) => {
   let url = "";
   let config: HttpConfig = {};
 
-  console.log("p", params);
-
   if (Array.isArray(params)) {
     [url, config] = params;
   } else {
@@ -32,20 +30,30 @@ export const fetcher = async (params: string | [string, HttpConfig]) => {
     init.body = JSON.stringify(config.params || {});
   }
 
-  let res = await fetch(url, init);
-
-  console.log("typeof res", res, typeof res);
-
-  return await res.json();
+  const res = await fetch(url, init);
 
   if (res.ok) {
-    res = await res.json();
-    return res;
+    let res2 = await res.json();
+    return res2;
   }
 
-  console.log("typeof res", res, typeof res);
+  if (res.headers) {
+    const type = res.headers.get("Content-Type");
+  }
 
-  const error = await res.json();
+  let error: any = new Error();
+  try {
+    error = await res.json();
+    console.log("error1", error);
+  } catch (e) {}
+
+  try {
+    error = await res.text();
+    console.log("error2", error);
+  } catch (e) {}
+
+  console.log("error", error);
+
   throw error;
 };
 
