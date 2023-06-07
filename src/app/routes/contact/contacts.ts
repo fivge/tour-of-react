@@ -24,14 +24,14 @@ export async function createContact() {
 
 export async function getContact(id) {
   await fakeNetwork(`contact:${id}`);
-  let contacts = await localforage.getItem("contacts");
+  let contacts = await localforage.getItem<any[]>("contacts");
   let contact = contacts.find(contact => contact.id === id);
   return contact ?? null;
 }
 
 export async function updateContact(id, updates) {
   await fakeNetwork();
-  let contacts = await localforage.getItem("contacts");
+  let contacts = await localforage.getItem<any[]>("contacts");
   let contact = contacts.find(contact => contact.id === id);
   if (!contact) throw new Error("No contact found for", id);
   Object.assign(contact, updates);
@@ -40,7 +40,7 @@ export async function updateContact(id, updates) {
 }
 
 export async function deleteContact(id) {
-  let contacts = await localforage.getItem("contacts");
+  let contacts = await localforage.getItem<any[]>("contacts");
   let index = contacts.findIndex(contact => contact.id === id);
   if (index > -1) {
     contacts.splice(index, 1);
