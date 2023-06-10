@@ -2,6 +2,24 @@ import { SWRConfig } from "swr";
 
 import { HttpConfig } from "./http.interface";
 
+const typeMap = {
+  json: ["application/json"],
+  text: ["text/plain"],
+};
+
+const responseDataHander = (res: Response) => {
+  const type = res.headers.get("Content-Type");
+  if (typeMap.json.find(i => type.includes(i))) {
+    return res.json();
+  }
+
+  if (typeMap.text.find(i => type.includes(i))) {
+    return res.text();
+  }
+
+  return res;
+};
+
 export const fetcher = async (params: string | [string, HttpConfig]) => {
   let url = "";
   let config: HttpConfig = {};
@@ -12,18 +30,19 @@ export const fetcher = async (params: string | [string, HttpConfig]) => {
     url = params;
   }
 
-  const { perfix, mode } = config;
+  const { perfix, method, headers = {} } = config;
 
   if (perfix && !(url.startsWith("http://") || url.startsWith("https://"))) {
     url = `${perfix}${url}`;
   }
 
   const init: RequestInit = {
-    method: config.method || "GET",
+    method: method || "GET",
     headers: {
       "Content-Type": "application/json",
+      ...headers,
     },
-    mode: mode || "cors",
+    mode: "cors",
   };
 
   if (init.method === "POST") {
@@ -31,30 +50,13 @@ export const fetcher = async (params: string | [string, HttpConfig]) => {
   }
 
   const res = await fetch(url, init);
+  const data = await responseDataHander(res);
 
   if (res.ok) {
-    let res2 = await res.json();
-    return res2;
+    return data;
   }
 
-  if (res.headers) {
-    const type = res.headers.get("Content-Type");
-  }
-
-  let error: any = new Error();
-  try {
-    error = await res.json();
-    console.log("error1", error);
-  } catch (e) {}
-
-  try {
-    error = await res.text();
-    console.log("error2", error);
-  } catch (e) {}
-
-  console.log("error", error);
-
-  throw error;
+  throw data;
 };
 
 const options = {

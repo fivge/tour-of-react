@@ -4,7 +4,7 @@ export interface HttpConfig {
   /** method */
   method?: string;
   /** params */
-  params?: string;
-  mode?: RequestMode;
-  // [x]: string;
+  params?: any;
+  headers?: { [key: string]: string };
+  [x: string]: any;
 }

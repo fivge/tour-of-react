@@ -1,15 +1,20 @@
+import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 
 import { fetcher } from "./http.provider";
 
-const useHttpMutation = (url, options: any = {}) => {
+const useHttp = (uri: string, options: any = {}) => {
+  return useSWR([uri, options]);
+};
+
+const useHttpMutation = (uri: string, options: any = {}) => {
   const { method } = options;
 
   const sendRequest = async (url, { arg }) => fetcher([url, { method, params: arg }]);
 
-  const { trigger, isMutating } = useSWRMutation(url, sendRequest);
+  const { trigger, isMutating } = useSWRMutation(uri, sendRequest);
 
   return { trigger, isMutating };
 };
 
-export { useHttpMutation };
+export { useHttp, useHttpMutation };
