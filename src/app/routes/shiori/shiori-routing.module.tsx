@@ -1,15 +1,25 @@
-import Home from "./home";
-import Login from "./login";
-
-const ShioriRouting = [
-  {
-    path: "login",
-    element: <Login />,
+const ShioriRouting = {
+  path: "shiori",
+  async lazy() {
+    const { Layout } = await import("./shiori-module");
+    return { Component: Layout };
   },
-  {
-    path: "home",
-    element: <Home />,
-  },
-];
+  children: [
+    {
+      path: "login",
+      async lazy() {
+        const { Login } = await import("./shiori-module");
+        return { Component: Login };
+      },
+    },
+    {
+      path: "home",
+      async lazy() {
+        const { Home } = await import("./shiori-module");
+        return { Component: Home };
+      },
+    },
+  ],
+};
 
 export default ShioriRouting;

@@ -6,13 +6,7 @@ import ContactHome from "./contact/home";
 import Contact from "./contact/contact";
 import EditContact, { action as editAction } from "./contact/edit";
 import ErrorPage from "./error-page";
-import Square from "./square/index";
-import MUi from "./mui/index";
-import RxJS from "./rxjs/index";
-import Zustand from "./zustand/index";
-import Zustand2 from "./zustand2/index";
 import ShioriRouting from "./shiori/shiori-routing.module";
-import ShioriModule from "./shiori";
 
 const router = createBrowserRouter([
   {
@@ -38,29 +32,40 @@ const router = createBrowserRouter([
   },
   {
     path: "square",
-    element: <Square />,
+    async lazy() {
+      const Component = await import("./square/index");
+      return { Component: Component.default };
+    },
   },
   {
     path: "mui",
-    element: <MUi />,
+    async lazy() {
+      const Component = await import("./mui/index");
+      return { Component: Component.default };
+    },
   },
   {
     path: "rxjs",
-    element: <RxJS />,
+    async lazy() {
+      const Component = await import("./rxjs/index");
+      return { Component: Component.default };
+    },
   },
   {
     path: "zustand",
-    element: <Zustand />,
+    async lazy() {
+      const Component = await import("./zustand/index");
+      return { Component: Component.default };
+    },
   },
   {
     path: "zustand2",
-    element: <Zustand2 />,
+    async lazy() {
+      const Component = await import("./zustand2/index");
+      return { Component: Component.default };
+    },
   },
-  {
-    path: "shiori",
-    element: <ShioriModule />,
-    children: ShioriRouting,
-  },
+  ShioriRouting,
   // {
   //   path: "contacts/:contactId",
   //   element: <Contact />,

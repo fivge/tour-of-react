@@ -42,4 +42,6 @@ const MyApp = () => {
   );
 };
 
+MyApp.displayName = "xxx";
+
 export default MyApp;

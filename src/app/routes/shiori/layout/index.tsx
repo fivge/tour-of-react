@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-const ShioriModule = () => {
+const Layout = () => {
   return (
     <>
       <Outlet />
@@ -8,4 +8,4 @@ const ShioriModule = () => {
   );
 };
 
-export default ShioriModule;
+export default Layout;
