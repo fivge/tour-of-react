@@ -6,6 +6,13 @@ const ShioriRouting = {
   },
   children: [
     {
+      index: true,
+      async lazy() {
+        const { Start } = await import("./shiori-module");
+        return { Component: Start };
+      },
+    },
+    {
       path: "login",
       async lazy() {
         const { Login } = await import("./shiori-module");

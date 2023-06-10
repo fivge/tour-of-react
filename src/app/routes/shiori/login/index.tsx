@@ -65,7 +65,7 @@ const Login = () => {
           <CardContent>
             <div className="fields">
               <TextField label="用户名" variant="standard" onChange={e => onChange(e.target.value, "username")} />
-              <TextField label="密码" variant="standard" onChange={e => onChange(e.target.value, "password")} />
+              <TextField label="密码" variant="standard" type="password" onChange={e => onChange(e.target.value, "password")} />
             </div>
           </CardContent>
           <CardActions>

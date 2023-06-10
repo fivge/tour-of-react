@@ -1,4 +1,6 @@
+import useSWR from "swr";
 import { useHttpMutation } from "../../core/http";
+import { useHttp } from "./shared/http";
 
 const perfix = "https://shiori.0x64.ml";
 
@@ -8,6 +10,13 @@ const useLogin = () => {
   return { trigger, isMutating };
 };
 
+const useTags = <T>() => {
+  const { data, error, isLoading } = useHttp<T>("/shiori/api/tags", { foo: "bar" });
+
+  return { data, error, isLoading };
+};
+
 export default {
   useLogin,
+  useTags,
 };

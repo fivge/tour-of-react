@@ -10,11 +10,9 @@ const cookieStorage: StateStorage = {
     try {
       const { state } = JSON.parse(value);
       let { expires } = state;
-      expires = expires || 1;
+      expires = expires ? new Date(expires) : 1;
       cookies.set(name, value, { expires });
-    } catch (error) {
-      console.log("errrr", error);
-    }
+    } catch (error) {}
   },
   removeItem: (name: string) => {
     cookies.remove(name);
@@ -36,19 +34,5 @@ const useAuth = create(
   )
 );
 
-const useBearStore = create(
-  persist<any>(
-    (set, get) => ({
-      bears: 0,
-      addABear: () => set({ bears: get().bears + 1 }),
-    }),
-    {
-      name: "food-storage-2", // name of the item in the storage (must be unique)
-      // storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
-      storage: createJSONStorage(() => cookieStorage),
-    }
-  )
-);
-
 // {"session":"218d30dd-8340-4053-8ab8-0f3e3f1a4a1c","account":{"id":1,"username":"lux","owner":true},"expires":"Wed, 05 Jul 2023 19:16:25 UTC"}
-export { useAuth, useBearStore };
+export { useAuth };
