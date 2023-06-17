@@ -16,7 +16,15 @@ const useTags = <T>() => {
   return { data, error, isLoading };
 };
 
+// GET
+const useBookmarks = <T>(params) => {
+  const { data, error, isLoading } = useHttp<T>("/shiori/api/bookmarks", params);
+
+  return { data, error, isLoading };
+};
+
 export default {
   useLogin,
   useTags,
+  useBookmarks,
 };
