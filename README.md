@@ -55,6 +55,14 @@ https://github.com/quilljs/quill/
 
 https://github.com/zenoamaro/react-quill
 
+### 8. others
+
+#### date
+
+- https://www.npmjs.com/package/date-fns
+- https://www.npmjs.com/package/dayjs
+- https://www.npmjs.com/package/moment
+
 ## demos
 
 - https://github.com/marmelab/react-admin
