@@ -10,7 +10,7 @@ import N from "./nodes";
 
 const Home = () => {
   const [tag, setTag] = useState("all");
-  const { data: tags = [], error, isLoading } = api.useTags<ITag[]>();
+  const { data: tags = [], mutate: mutateTags, error, isLoading } = api.useTags<ITag[]>();
   const { data: bookmarks = {}, error: berror, isLoading: bookmarksLoading } = api.useBookmarks<any>({ tags: tag });
 
   useEffect(() => {
@@ -29,11 +29,15 @@ const Home = () => {
     }
   };
 
+  const onTagUpdate = () => {
+    mutateTags();
+  };
+
   return (
     <>
       <N.Home>
         <N.Tags>
-          <Tags list={tags} onChange={onTagChange} />
+          <Tags list={tags} onChange={onTagChange} onUpdate={onTagUpdate} />
         </N.Tags>
         <N.Bookmarks>
           <Pagging params={bookmarks}>

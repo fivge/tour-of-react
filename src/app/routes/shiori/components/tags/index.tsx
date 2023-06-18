@@ -1,9 +1,11 @@
-import { Badge, List, ListItem, ListItemButton, ListItemText, Paper } from "@mui/material";
+import { List, Paper } from "@mui/material";
 import { memo, useEffect, useState } from "react";
-import { ITag } from "../../shared/shiori.interface";
 
-const Tags = (props: { list: ITag[]; onChange: (tag: ITag) => void }) => {
-  const { list, onChange } = props;
+import { ITag } from "../../shared/shiori.interface";
+import Tag from "../tag";
+
+const Tags = (props: { list: ITag[]; onChange: (tag: ITag) => void; [x: string]: any }) => {
+  const { list, onChange, onUpdate } = props;
   const [innerList, setInnerList] = useState([]);
   const [selected, setSelected] = useState<string | number>("all");
 
@@ -40,16 +42,7 @@ const Tags = (props: { list: ITag[]; onChange: (tag: ITag) => void }) => {
       <Paper elevation={12} sx={{ height: "100%" }}>
         <List>
           {innerList.map(item => (
-            <ListItem
-              key={item.id}
-              disablePadding
-              secondaryAction={<Badge badgeContent={item.nBookmarks} color="primary" />}
-              onClick={() => onClick(item)}
-            >
-              <ListItemButton selected={selected === item.id}>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
-            </ListItem>
+            <Tag key={item.id} item={item} selected={selected} onClick={onClick} onUpdate={onUpdate} />
           ))}
         </List>
       </Paper>

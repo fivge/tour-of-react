@@ -8,9 +8,7 @@ const useHttp = (uri: string, options: any = {}) => {
 };
 
 const useHttpMutation = (uri: string, options: any = {}) => {
-  const { method } = options;
-
-  const sendRequest = async (url, { arg }) => fetcher([url, { method, params: arg }]);
+  const sendRequest = async (url, { arg }) => fetcher([url, { ...options, params: arg }]);
 
   const { trigger, isMutating } = useSWRMutation(uri, sendRequest);
 

@@ -1,6 +1,4 @@
-import useSWR from "swr";
-import { useHttpMutation } from "../../core/http";
-import { useHttp } from "./shared/http";
+import { useHttp, useHttpMutation } from "./shared/http";
 
 const perfix = "https://shiori.0x64.ml";
 
@@ -11,9 +9,11 @@ const useLogin = () => {
 };
 
 const useTags = <T>() => {
-  const { data, error, isLoading } = useHttp<T>("/shiori/api/tags");
+  return useHttp<T>("/shiori/api/tags");
+};
 
-  return { data, error, isLoading };
+const useTagsUpdate = <T>() => {
+  return useHttpMutation("/shiori/api/tag", { method: "PUT" });
 };
 
 // GET
@@ -36,5 +36,6 @@ const useBookmarks = <T>(params) => {
 export default {
   useLogin,
   useTags,
+  useTagsUpdate,
   useBookmarks,
 };

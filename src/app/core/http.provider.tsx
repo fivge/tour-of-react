@@ -71,8 +71,8 @@ export const fetcher = async (params: string | [string, HttpConfig]) => {
     }
   }
 
-  // POST body
-  if (init.method === "POST") {
+  // POST PUT body
+  if (["POST", "PUT"].includes(init.method)) {
     init.body = JSON.stringify(config.params || {});
   }
 
