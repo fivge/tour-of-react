@@ -1,19 +1,17 @@
 import { useHttp, useHttpMutation } from "./shared/http";
 
-const perfix = "https://shiori.0x64.ml";
-
 const useLogin = () => {
-  const { trigger, isMutating } = useHttpMutation("/shiori/api/login", { method: "POST" });
+  const { trigger, isMutating } = useHttpMutation("/api/login", { method: "POST" });
 
   return { trigger, isMutating };
 };
 
 const useTags = <T>() => {
-  return useHttp<T>("/shiori/api/tags");
+  return useHttp<T>("/api/tags");
 };
 
 const useTagsUpdate = <T>() => {
-  return useHttpMutation("/shiori/api/tag", { method: "PUT" });
+  return useHttpMutation("/api/tag", { method: "PUT" });
 };
 
 // GET
@@ -30,7 +28,7 @@ const useBookmarks = <T>(params) => {
     newParams.tags = "*";
   }
 
-  return useHttp<T>("/shiori/api/bookmarks", { params: newParams });
+  return useHttp<T>("/api/bookmarks", { params: newParams });
 };
 
 export default {

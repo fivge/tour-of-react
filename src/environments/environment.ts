@@ -1,3 +1,4 @@
 export const environment = {
-  production: false,
+  production: import.meta.env.PROD,
+  shioriApi: import.meta.env.VITE_SHIORI_API,
 };
