@@ -26,6 +26,13 @@ const ShioriRouting = {
         return { Component: Home };
       },
     },
+    {
+      path: "home/:search",
+      async lazy() {
+        const { Home } = await import("./shiori-module");
+        return { Component: Home };
+      },
+    },
   ],
 };
 

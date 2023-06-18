@@ -11,16 +11,26 @@ const useLogin = () => {
 };
 
 const useTags = <T>() => {
-  const { data, error, isLoading } = useHttp<T>("/shiori/api/tags", { foo: "bar" });
+  const { data, error, isLoading } = useHttp<T>("/shiori/api/tags");
 
   return { data, error, isLoading };
 };
 
 // GET
 const useBookmarks = <T>(params) => {
-  const { data, error, isLoading } = useHttp<T>("/shiori/api/bookmarks", params);
+  const { tags } = params;
+  const newParams = { ...params };
 
-  return { data, error, isLoading };
+  if (tags === "all") {
+    newParams.tags = null;
+  } else if (tags === "untagged") {
+    newParams.tags = null;
+    newParams.exclude = "*";
+  } else if (tags === "tagged") {
+    newParams.tags = "*";
+  }
+
+  return useHttp<T>("/shiori/api/bookmarks", { params: newParams });
 };
 
 export default {

@@ -1,27 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Tags from "../components/tags";
 import Pagging from "../components/pagging";
 import Bookmarks from "../components/bookmarks";
 
-import { useAuth } from "../shared/store";
 import api from "../api";
-import { Tag } from "../shared/shiori.interface";
+import { ITag } from "../shared/shiori.interface";
 import N from "./nodes";
 
 const Home = () => {
-  const session = useAuth(state => state.session);
-  const { data: tags = [], error, isLoading } = api.useTags<Tag[]>();
-  const { data: bookmarks = {}, error: berror, isLoading: bloading } = api.useBookmarks<any>({ tags: "shiori" });
+  const [tag, setTag] = useState("all");
+  const { data: tags = [], error, isLoading } = api.useTags<ITag[]>();
+  const { data: bookmarks = {}, error: berror, isLoading: bookmarksLoading } = api.useBookmarks<any>({ tags: tag });
 
   useEffect(() => {
+    // matrixParams
     init();
   }, []);
 
   const init = () => {};
 
-  const onTagChange = item => {
-    console.log(item);
+  const onTagChange = tag => {
+    const { type, name } = tag;
+    if (["all", "untagged", "tagged"].includes(type)) {
+      setTag(type);
+    } else {
+      setTag(name);
+    }
   };
 
   return (
@@ -32,7 +37,7 @@ const Home = () => {
         </N.Tags>
         <N.Bookmarks>
           <Pagging params={bookmarks}>
-            <Bookmarks list={bookmarks?.bookmarks || []} />
+            <Bookmarks list={bookmarksLoading ? new Array(1).fill("1") : bookmarks?.bookmarks} loading={bookmarksLoading} />
           </Pagging>
         </N.Bookmarks>
       </N.Home>

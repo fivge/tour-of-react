@@ -1,4 +1,4 @@
-export interface Tag {
+export interface ITag {
   id: number;
   name: string;
   nBookmarks: number;
@@ -15,6 +15,6 @@ export interface IBookmark {
   imageURL: string;
   hasContent: boolean;
   hasArchive: boolean;
-  tags: Tag[];
+  tags: ITag[];
   createArchive: boolean;
 }

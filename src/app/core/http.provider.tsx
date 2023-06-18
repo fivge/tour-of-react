@@ -7,6 +7,9 @@ const typeMap = {
   text: ["text/plain"],
 };
 
+/**
+ * res to json|text|...
+ */
 const responseDataHander = (res: Response) => {
   const type = res.headers.get("Content-Type");
   if (typeMap.json.find(i => type.includes(i))) {
@@ -45,6 +48,30 @@ export const fetcher = async (params: string | [string, HttpConfig]) => {
     mode: "cors",
   };
 
+  // GET searchParams
+  if (init.method === "GET" && config.params) {
+    const searchParams = new URLSearchParams();
+    let searchParamsStr = "";
+
+    for (let key in config.params) {
+      const value = config.params[key];
+      if (value !== null && value !== undefined) {
+        searchParams.set(key, value);
+      }
+    }
+
+    searchParamsStr = searchParams.toString();
+
+    if (searchParamsStr) {
+      if (url.includes("?")) {
+        url = `${url}&${searchParamsStr}`;
+      } else {
+        url = `${url}?${searchParamsStr}`;
+      }
+    }
+  }
+
+  // POST body
   if (init.method === "POST") {
     init.body = JSON.stringify(config.params || {});
   }
