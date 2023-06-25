@@ -7,6 +7,7 @@ import Contact from "./contact/contact";
 import EditContact, { action as editAction } from "./contact/edit";
 import ErrorPage from "./error-page";
 import ShioriRouting from "./shiori/shiori-routing.module";
+import DappRouting from "./dapp/dapp-routing.module";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,7 @@ const router = createBrowserRouter([
     },
   },
   ShioriRouting,
+  DappRouting,
   // {
   //   path: "contacts/:contactId",
   //   element: <Contact />,
