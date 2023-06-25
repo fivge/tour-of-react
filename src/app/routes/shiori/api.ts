@@ -31,9 +31,14 @@ const useBookmarks = <T>(params) => {
   return useHttp<T>("/api/bookmarks", { params: newParams });
 };
 
+const useBookmarkUpdate = <T>() => {
+  return useHttpMutation("/api/bookmarks", { method: "PUT" });
+};
+
 export default {
   useLogin,
   useTags,
   useTagsUpdate,
   useBookmarks,
+  useBookmarkUpdate,
 };

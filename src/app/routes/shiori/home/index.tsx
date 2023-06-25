@@ -11,7 +11,12 @@ import N from "./nodes";
 const Home = () => {
   const [tag, setTag] = useState("all");
   const { data: tags = [], mutate: mutateTags, error, isLoading } = api.useTags<ITag[]>();
-  const { data: bookmarks = {}, error: berror, isLoading: bookmarksLoading } = api.useBookmarks<any>({ tags: tag });
+  const {
+    data: bookmarks = {},
+    mutate: mutateBookmarks,
+    error: berror,
+    isLoading: bookmarksLoading,
+  } = api.useBookmarks<any>({ tags: tag });
 
   useEffect(() => {
     // matrixParams
@@ -31,6 +36,7 @@ const Home = () => {
 
   const onTagUpdate = () => {
     mutateTags();
+    mutateBookmarks();
   };
 
   return (
@@ -41,7 +47,12 @@ const Home = () => {
         </N.Tags>
         <N.Bookmarks>
           <Pagging params={bookmarks}>
-            <Bookmarks list={bookmarksLoading ? new Array(1).fill("1") : bookmarks?.bookmarks} loading={bookmarksLoading} />
+            <Bookmarks
+              list={bookmarksLoading ? new Array(1).fill("1") : bookmarks?.bookmarks}
+              loading={bookmarksLoading}
+              tags={tags}
+              onUpdate={onTagUpdate}
+            />
           </Pagging>
         </N.Bookmarks>
       </N.Home>

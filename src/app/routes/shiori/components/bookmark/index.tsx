@@ -1,23 +1,39 @@
-import { memo } from "react";
-import { Card, CardActionArea, CardActions, CardContent, CardHeader, Link, Skeleton, Typography } from "@mui/material";
+import { memo, useState } from "react";
+import { Card, CardActionArea, CardActions, CardContent, CardHeader, IconButton, Link, Skeleton, Typography } from "@mui/material";
 import { css } from "@emotion/react";
 import { formatDistance } from "date-fns";
 import { zhCN as zhCNLocale } from "date-fns/locale";
+import BlurOnIcon from "@mui/icons-material/BlurOn";
 
 import { IBookmark, ITag } from "../../shared/shiori.interface";
 import N from "./nodes";
+import BookmarkEdit from "../bookmark-edit";
 
 const now = new Date();
 
 const Bookmark = (props: { item: IBookmark; [x: string]: any }) => {
-  const { item, loading } = props;
+  const { item, loading, tags, onUpdate } = props;
 
   const host = !loading && new URL(item.url).host;
 
   const date = !loading && formatDistance(new Date(item.modified), now, { addSuffix: true, locale: zhCNLocale });
 
+  const [openEdit, setOpenEdit] = useState(false);
+
   const onClick = () => {
     window.open(item.url, "_blank");
+  };
+
+  const onEditOpen = () => {
+    setOpenEdit(true);
+  };
+
+  const onEdit = (status = false) => {
+    setOpenEdit(false);
+    // TODO: 与分页配合, 增量更新
+    if (status) {
+      onUpdate();
+    }
   };
 
   return (
@@ -69,17 +85,17 @@ const Bookmark = (props: { item: IBookmark; [x: string]: any }) => {
                 <div>{date}</div>
               </Typography>
             </CardContent>
-            <CardActionArea>
-              <CardActions>
-                <div>123</div>
-                <div>123</div>
-                <div>123</div>
-                <div>123</div>
-              </CardActions>
-            </CardActionArea>
+            {/* <CardActionArea>
+            </CardActionArea> */}
+            <CardActions sx={{ p: 0 }}>
+              <IconButton onClick={onEditOpen}>
+                <BlurOnIcon />
+              </IconButton>
+            </CardActions>
           </div>
         </Card>
       )}
+      {openEdit && <BookmarkEdit open={openEdit} value={item} tags={tags} onClose={onEdit} />}
     </>
   );
 };
