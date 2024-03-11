@@ -1,30 +1,20 @@
 import React from "react";
-
-// We'll use ethers to interact with the Ethereum network and our contract
 import { ethers } from "ethers";
 
-// We import the contract's artifacts and address here, as we are going to be
-// using them with ethers
 import simpleTokenArtifact from "../shared/SimpleToken.json";
 import contractAddress from "../shared/contract-address.json";
-import deployerAccount from "../shared/deployer.json";
+// import deployerAccount from "../shared/deployer.json";
 
 // All the logic of this dapp is contained in the Dapp component.
 // These other components are just presentational ones: they don't have any
 // logic. They just render HTML.
 import { NoWalletDetected } from "./NoWalletDetected";
-import { ConnectWallet } from "./ConnectWallet";
+import ConnectWallet from "./ConnectWallet";
 import { Loading } from "./Loading";
 import { Transfer } from "./Transfer";
 import { TransactionErrorMessage } from "./TransactionErrorMessage";
 import { WaitingForTransactionMessage } from "./WaitingForTransactionMessage";
 import { NoTokensMessage } from "./NoTokensMessage";
-
-// This is the Hardhat Network id, you might change it in the hardhat.config.js
-// Here's a list of network ids https://docs.metamask.io/guide/ethereum-provider.html#properties
-// to use when deploying to other networks.
-// https://hardhat.org/hardhat-network/docs/reference#chainid
-const HARDHAT_NETWORK_ID = "31337";
 
 // This is an error code that indicates that the user canceled a transaction
 const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
@@ -33,7 +23,7 @@ const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
 let simpleTokenContractAddress = contractAddress.contractAddress;
 
 //get the contract deployer
-const contractDeployer = deployerAccount.deployer;
+// const contractDeployer = deployerAccount.deployer;
 
 const initialState = {
   // The info of the token (i.e. It's Name and symbol)
@@ -81,6 +71,7 @@ export class Dapp extends React.Component {
   private _pollDataInterval: NodeJS.Timer;
 
   render() {
+    console.log("********* window.ethereum", window.ethereum);
     // Ethereum wallets inject the window.ethereum object. If it hasn't been
     // injected, we instruct the user to install MetaMask.
     if (window.ethereum === undefined) {
@@ -95,13 +86,7 @@ export class Dapp extends React.Component {
     // Note that we pass it a callback that is going to be called when the user
     // clicks a button. This callback just calls the _connectWallet method.
     if (!this.state.selectedAddress) {
-      return (
-        <ConnectWallet
-          connectWallet={() => this._connectWallet()}
-          networkError={this.state.networkError}
-          dismiss={() => this._dismissNetworkError()}
-        />
-      );
+      return <ConnectWallet onConnectWallet={a => this._initialize(a)} />;
     }
 
     // If the token data or the user's balance hasn't loaded yet, we show
@@ -188,44 +173,6 @@ export class Dapp extends React.Component {
     this._stopPollingData();
   }
 
-  async _connectWallet() {
-    // This method is run when the user clicks the Connect. It connects the
-    // dapp to the user's wallet, and initializes it.
-
-    // To connect to the user's wallet, we have to run this method.
-    // It returns a promise that will resolve to the user's address.
-    const [selectedAddress] = await window.ethereum.request({ method: "eth_requestAccounts" });
-
-    // Once we have the address, we can initialize the application.
-
-    // First we check the network
-    if (!this._checkNetwork()) {
-      return;
-    }
-
-    await this._initialize(selectedAddress);
-
-    // We reinitialize it whenever the user changes their account.
-    window.ethereum.on("accountsChanged", ([newAddress]) => {
-      this._stopPollingData();
-      // `accountsChanged` event can be triggered with an undefined newAddress.
-      // This happens when the user removes the Dapp from the "Connected
-      // list of sites allowed access to your addresses" (Metamask > Settings > Connections)
-      // To avoid errors, we reset the dapp state
-      if (newAddress === undefined) {
-        return this._resetState();
-      }
-
-      this._initialize(newAddress);
-    });
-
-    // We reset the dapp state if the network is changed
-    window.ethereum.on("chainChanged", ([_chainId]) => {
-      this._stopPollingData();
-      this._resetState();
-    });
-  }
-
   async _initialize(userAddress) {
     // This method initializes the dapp
 
@@ -262,7 +209,7 @@ export class Dapp extends React.Component {
   // don't need to poll it. If that's the case, you can just fetch it when you
   // initialize the app, as we do with the token data.
   _startPollingData() {
-    this._pollDataInterval = setInterval(() => this._updateBalance(), 1000);
+    // this._pollDataInterval = setInterval(() => this._updateBalance(), 1000);
 
     // We run it once immediately so we don't have to wait for it
     this._updateBalance();
@@ -362,25 +309,17 @@ export class Dapp extends React.Component {
   // This is an utility method that turns an RPC error into a human readable
   // message.
   _getRpcErrorMessage(error) {
-    return error.reason;
+    if (error.data) {
+      return error.data.message;
+    }
+
+    return error.message;
+    // return error.reason;
   }
 
   // This method resets the state
   _resetState() {
     this.setState(initialState);
-  }
-
-  // This method checks if Metamask selected network is Localhost:8545
-  _checkNetwork() {
-    if (window.ethereum.networkVersion === HARDHAT_NETWORK_ID) {
-      return true;
-    }
-
-    this.setState({
-      networkError: "Please connect Metamask to kovan",
-    });
-
-    return false;
   }
 
   async _deployContract() {
