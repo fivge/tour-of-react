@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import Home from "./home/App";
+import NavPage from "./nav/index";
 import ContactRoot from "./contact/index";
 import ContactHome from "./contact/home";
 import Contact from "./contact/contact";
@@ -12,6 +13,10 @@ import DappRouting from "./dapp/dapp-routing.module";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <NavPage />,
+  },
+  {
+    path: "home",
     element: <Home />,
   },
   {
