@@ -473,10 +473,10 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.16.17.tgz#c5a1a4bfe1b57f0c3e61b29883525c6da3e5c091"
   integrity sha512-y+EHuSchhL7FjHgvQL/0fnnFmO4T1bhvWANX6gcnqTjtnKWbTvUMCpGnv2+t+31d7RzyEAYAd4u2fnIhHL6N/Q==
 
-"@fontsource/roboto@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-5.0.0.tgz#a53db1122334849f7ca40f6c1e30c2ee044ab798"
-  integrity sha512-ZUbU49VQcTGo06+C/SOX77BYuJJ8kBAp1tcxQ/BwQrJEQCXct4913gKrX6b+IMGFaj+FnI9kx0SSe0J2iN2Mug==
+"@fontsource/roboto@^5.0.13":
+  version "5.0.13"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-5.0.13.tgz#2d6ec431a2f9dfe38ca76525c2d6bf12241f575b"
+  integrity sha512-j61DHjsdUCKMXSdNLTOxcG701FWnF0jcqNNQi2iPCDxU8seN/sMxeh62dC++UiagCWq9ghTypX+Pcy7kX+QOeQ==
 
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
@@ -529,6 +529,11 @@
   integrity sha512-GFn91inaUa2oHLak8awSIigYz0cU0Payr1rcFsrkf5OJ5eSPxElyZfKh0f2p9FsTiZWXQdWGJeXZICEfXXYSXQ==
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.2.0"
+
+"@material-design-icons/font@^0.14.13":
+  version "0.14.13"
+  resolved "https://registry.yarnpkg.com/@material-design-icons/font/-/font-0.14.13.tgz#fb97163ae1072902780444e724db78b4ff2b5bba"
+  integrity sha512-qU5Zms9VUdxxq4oC7lY+Eibz+O6YjmctGZKToUfqQOC4qVkbUNksu+0UizFBdbtx8euERZ3GGcFoN6F9LeXSMw==
 
 "@material/web@^1.5.1":
   version "1.5.1"
