@@ -18,6 +18,20 @@ import "@material/web/checkbox/checkbox";
 </label>;
 ```
 
+## css
+
+```ts
+import styled from "@emotion/styled";
+
+const Page = styled.div``;
+
+export default { Page };
+```
+
+```ts
+import N from "./nodes";
+```
+
 ## todo
 
 ### JSX

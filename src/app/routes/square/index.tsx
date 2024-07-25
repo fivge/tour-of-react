@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import N from "./nodes";
+
 function calculateWinner(squares: any[]) {
   const lines = [
     [0, 1, 2],
@@ -122,18 +124,17 @@ const Game = () => {
   });
 
   return (
-    <div className="game">
-      <div className="game-board">
-        <Board
-          squares={current.squares}
-          onClick={(i: number) => handleClick(i)}
-        />
+    <N.Page>
+      <div className="game">
+        <div className="game-board">
+          <Board squares={current.squares} onClick={(i: number) => handleClick(i)} />
+        </div>
+        <div className="game-info">
+          <div>{status}</div>
+          <ol>{moves}</ol>
+        </div>
       </div>
-      <div className="game-info">
-        <div>{status}</div>
-        <ol>{moves}</ol>
-      </div>
-    </div>
+    </N.Page>
   );
 };
 

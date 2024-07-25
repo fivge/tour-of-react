@@ -1,9 +1,9 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import "@material/web/list/list";
 import "@material/web/list/list-item";
 import "@material/web/divider/divider";
-import React from "react";
 
 const pages = [
   {
