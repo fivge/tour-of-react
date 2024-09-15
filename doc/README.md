@@ -8,15 +8,15 @@
 <span className="material-icons">open_in_new</span>
 ```
 
+https://www.npmjs.com/package/@material-design-icons/font
+
+https://marella.me/material-design-icons/demo/font/
+
 ## ui component
 
-```tsx
-import "@material/web/checkbox/checkbox";
+~~https://github.com/material-components/material-web~~
 
-<label>
-  Material 3<md-checkbox checked></md-checkbox>
-</label>;
-```
+https://github.com/zdhxiong/mdui
 
 ## css
 

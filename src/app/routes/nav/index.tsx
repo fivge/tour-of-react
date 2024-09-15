@@ -1,9 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import "@material/web/list/list";
-import "@material/web/list/list-item";
-import "@material/web/divider/divider";
+import { MdDivider, MdList, MdListItem } from "../../components/index";
 
 const pages = [
   {
@@ -50,17 +48,16 @@ function NavPage() {
   return (
     <>
       <h1>a set of pages</h1>
-      <tr-foo-a />
-      <md-list style={{ maxWidth: 600, padding: "0 4px" }}>
+      <MdList style={{ maxWidth: 600, padding: "0 4px" }}>
         {pages.map((page, index) => (
           <React.Fragment key={page.route}>
-            {index !== 0 && <md-divider></md-divider>}
-            <md-list-item type="link" onClick={() => onNav(page)}>
+            {index !== 0 && <MdDivider />}
+            <MdListItem type="link" onClick={() => onNav(page)}>
               {page.name}
-            </md-list-item>
+            </MdListItem>
           </React.Fragment>
         ))}
-      </md-list>
+      </MdList>
     </>
   );
 }
