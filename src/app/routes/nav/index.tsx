@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { MdDivider, MdList, MdListItem } from "../../components/index";
+import { MdDivider, MdIcon, MdList, MdListItem } from "@components/index";
 
 const pages = [
   {
@@ -48,6 +48,11 @@ function NavPage() {
   return (
     <>
       <h1>a set of pages</h1>
+      <MdIcon name="delete" />
+      <MdIcon name="delete--outlined" />
+      <MdIcon name="delete--rounded" />
+      <MdIcon name="delete--sharp" style={{ color: "red" }} />
+      <MdIcon name="delete--two-tone" style={{ fontSize: "32px" }} />
       <MdList style={{ maxWidth: 600, padding: "0 4px" }}>
         {pages.map((page, index) => (
           <React.Fragment key={page.route}>
