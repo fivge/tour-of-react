@@ -33,7 +33,8 @@ https://github.com/styled-components/styled-components
 
 ### 4. ui component
 
-- https://github.com/material-components/material-web
+- https://github.com/zdhxiong/mdui
+- ~~https://github.com/material-components/material-web~~
 - ~~https://mui.com/~~
 - ~~https://github.com/rmwc/rmwc~~
 - https://github.com/ant-design/ant-design
@@ -56,6 +57,7 @@ https://airbnb.io/visx
 - [axios](https://github.com/axios/axios)
 - [swr](https://github.com/vercel/swr)
 - GraphQL
+- [query](https://github.com/TanStack/query)
 
 ### 6. rxjs
 

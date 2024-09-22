@@ -1,7 +1,7 @@
 import { useHttp, useHttpMutation } from "./shared/http";
 
 const useLogin = () => {
-  const { trigger, isMutating } = useHttpMutation("/api/login", { method: "POST" });
+  const { trigger, isMutating } = useHttpMutation("/auth/login", { method: "POST", auth: false });
 
   return { trigger, isMutating };
 };

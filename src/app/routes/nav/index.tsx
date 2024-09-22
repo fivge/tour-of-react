@@ -28,10 +28,10 @@ const pages = [
     route: "/zustand",
     name: "zustand",
   },
-  // {
-  //   route: "/shiori/home",
-  //   name: "shiori",
-  // },
+  {
+    route: "/shiori",
+    name: "shiori",
+  },
   {
     route: "/dapp/home",
     name: "dapp",

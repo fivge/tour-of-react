@@ -9,7 +9,13 @@ export default defineConfig({
     }),
   ],
   server: {
-    proxy: {},
+    proxy: {
+      "/shioriapi": {
+        target: "http://localhost:6001",
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/shioriapi/, ""),
+      },
+    },
   },
   resolve: {
     alias: {

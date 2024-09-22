@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
-import "./index.less";
+import N from "./nodes";
 
 const Layout = () => {
   return (
     <>
-      <Outlet />
+      <N.Page>
+        <Outlet />
+      </N.Page>
     </>
   );
 };
