@@ -20,6 +20,9 @@ export default defineConfig({
   resolve: {
     alias: {
       "@components": "/src/app/components",
+      "@core": "/src/app/core",
+      "@api": "/src/app/api",
+      "@env": "/src/environments",
     },
   },
 });

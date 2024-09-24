@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
-import { MdCard, MdTextField, MdCheckbox, MdButton } from "@components/index";
+import { MdCard, MdTextField, MdCheckbox, MdButton, snackbar } from "@components/index";
 
-import api from "../api";
+import { api } from "@api/shiori";
 import { useAuth } from "../shared/auth.store";
 import N from "./nodes";
+import { useMutation } from "@tanstack/react-query";
+import { errorHandler } from "@core/http/index";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
 
-  const { trigger, isMutating } = api.useLogin();
+  const { mutateAsync } = useMutation({
+    mutationFn: api.login,
+  });
   const setAuth = useAuth(state => state.setAuth);
   const navigate = useNavigate();
 
@@ -32,6 +36,7 @@ const Login = () => {
 
   const onLogin = async () => {
     if (!username || !password) {
+      snackbar({ message: "请输入用户名或密码" });
       return;
     }
     try {
@@ -40,23 +45,16 @@ const Login = () => {
         password,
         remember_me: remember,
       };
-      // TODO: use query to replace swr
-      const res = await trigger(params);
-      console.log("res", res);
-      return;
+      const res = await mutateAsync(params);
       res.expires = new Date(res.expires);
       setAuth(res);
+      snackbar({ message: "登录成功" });
       navigate("../home");
-    } catch (e) {
-      console.log("e", e);
+    } catch (error) {
+      const message = errorHandler(error);
+      snackbar({ message });
     }
   };
-
-  // return (
-  //   <>
-  //     <div onClick={addABear}>add</div>
-  //   </>
-  // );
 
   return (
     <>

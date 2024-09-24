@@ -20,6 +20,13 @@ const ShioriRouting = {
       },
     },
     {
+      path: "demo",
+      async lazy() {
+        const { Demo } = await import("./shiori-module");
+        return { Component: Demo };
+      },
+    },
+    {
       path: "home",
       async lazy() {
         const { Home } = await import("./shiori-module");

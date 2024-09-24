@@ -6,6 +6,7 @@ import MdCard from "./md-card/index";
 import MdTextField from "./md-text-field/index";
 import MdCheckbox from "./md-checkbox/index";
 import MdButton from "./md-button/index";
+import { snackbar } from "./md-function/index";
 // import MdList from "./md-list/index";
 // import MdList from "./md-list/index";
 // import MdList from "./md-list/index";
@@ -16,4 +17,4 @@ import MdButton from "./md-button/index";
 // import MdList from "./md-list/index";
 // import MdList from "./md-list/index";
 
-export { MdDivider, MdIcon, MdList, MdListItem, MdCard, MdTextField, MdCheckbox, MdButton };
+export { MdDivider, MdIcon, MdList, MdListItem, MdCard, MdTextField, MdCheckbox, MdButton, snackbar };

@@ -13,7 +13,7 @@ const MdCheckbox = props => {
     ref.current.addEventListener("change", onInnerChange);
 
     return () => {
-      ref.current.removeEventListener("change", onInnerChange);
+      ref && ref.current && ref.current.removeEventListener("change", onInnerChange);
     };
   }, []);
 

@@ -1,4 +1,5 @@
 import { SWRConfig } from "swr";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { HttpConfig } from "./http.interface";
 
@@ -90,10 +91,16 @@ const options = {
   fetcher,
 };
 
+const queryClient = new QueryClient();
+
 const HttpProvider = props => {
   const { children } = props;
 
-  return <SWRConfig value={options}>{children}</SWRConfig>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <SWRConfig value={options}>{children}</SWRConfig>
+    </QueryClientProvider>
+  );
 };
 
 export default HttpProvider;
