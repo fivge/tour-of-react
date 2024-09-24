@@ -2,15 +2,17 @@ import { createQueryKeys } from "@lukemorales/query-key-factory";
 import $http from "@core/http/index";
 import env from "@env/environment";
 
+import { useAuth } from "../routes/shiori/shared/auth.store";
+import { snackbar } from "@components/index";
+import { redirect } from "react-router-dom";
+
 const perfix = `${env.shioriApi}/api/v1`;
 
 const http = config =>
   $http({
     ...config,
-    headers: {},
     transformResponse: [
       data => {
-        console.log("tra", data);
         let newData = data;
         try {
           newData = JSON.parse(newData);
@@ -23,7 +25,35 @@ const http = config =>
       },
     ],
   });
-const httpWithAuth = config => $http({ ...config, headers: {} });
+
+const delay = timer =>
+  new Promise(resolve => {
+    setTimeout(() => {
+      resolve("");
+    }, timer);
+  });
+
+const httpWithAuth = async config => {
+  const session = useAuth.getState().session;
+  const token = useAuth.getState().token;
+  const headers = {
+    "X-Session-Id": session,
+    Authorization: `Bearer ${token}`,
+  };
+  try {
+    const res = await http({ ...config, headers });
+    return res;
+  } catch (error) {
+    // Unauthorized
+    if (error && error.status === 401) {
+      // await snackbar({ message: "未登录" });
+      // await redirect("/shiori/login");
+      window.location.replace("/shiori/login");
+      // await delay(3000);
+    }
+    return Promise.reject(error);
+  }
+};
 
 export const api = {
   login: data =>
@@ -31,6 +61,10 @@ export const api = {
       method: "POST",
       url: `${perfix}/auth/login`,
       data,
+    }),
+  getTags: () =>
+    httpWithAuth({
+      url: `${perfix}/tags/`,
     }),
 };
 
@@ -53,6 +87,10 @@ export const shiori = createQueryKeys("shiori", {
   //   queryKey: [userId],
   //   // queryFn: () => api.getUser(userId),
   // }),
+  tags: {
+    queryKey: ["tags"],
+    queryFn: () => api.getTags(),
+  },
 });
 
 // export const todos = createQueryKeys('todos', {

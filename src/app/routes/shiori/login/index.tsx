@@ -46,7 +46,8 @@ const Login = () => {
         remember_me: remember,
       };
       const res = await mutateAsync(params);
-      res.expires = new Date(res.expires);
+      // TODO *1000?
+      res.expires = new Date(res.expires * 1000);
       setAuth(res);
       snackbar({ message: "登录成功" });
       navigate("../home");

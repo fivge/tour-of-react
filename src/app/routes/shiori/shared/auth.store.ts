@@ -23,6 +23,7 @@ const useAuth = create(
   persist<any>(
     (set, get) => ({
       session: "",
+      // TODO: get account from JWT token
       account: null,
       expires: null,
       setAuth: auth => set(auth),

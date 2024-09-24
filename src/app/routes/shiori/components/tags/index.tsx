@@ -43,7 +43,7 @@ const Tags = (props: { list: ITag[]; onChange: (tag: ITag) => void; [x: string]:
         elevation={12}
         sx={{
           height: "100%",
-          background: `url(https://pic.0x64.ml/a3e6e0a8993b4c9806159d16e0b911fd.gif)  bottom center/contain no-repeat`,
+          background: `url(https://pic.0x64.in/a3e6e0a8993b4c9806159d16e0b911fd.gif)  bottom center/contain no-repeat`,
         }}
       >
         <List>
